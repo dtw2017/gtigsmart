@@ -36,7 +36,20 @@ public class TruckInvoiceController {
 	@RequestMapping(value = "/truckinv", params = { "save" })
 	public @ResponseBody TruckInvoice saveTruckInvoice(@RequestBody TruckInvoice truckinv) {
 		System.out.println(truckinv.getChargeItems());
-		truckInvoiceRepository.save(truckinv);
+		//truckInvoiceRepository.save(truckinv);
+		TruckInvoice inv001 = new TruckInvoice();
+		inv001.setInvoiceNo("003");
+		Set<TruckChargeItem> items = new HashSet<>();
+		TruckChargeItem item001 = new TruckChargeItem();
+		TruckChargeItem item002 = new TruckChargeItem();
+		item002.setChargeAmount(21.22);
+		item001.setTruckInvoice(inv001);
+		item002.setTruckInvoice(inv001);
+		items.add(item001);
+		items.add(item002);	
+		inv001.setChargeItems(items);
+		truckInvoiceRepository.save(inv001);
+		
 	/**
 		TruckInvoice inv001 = new TruckInvoice();
 		inv001.setInvoiceNo("001");

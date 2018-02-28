@@ -37,6 +37,7 @@ public class TruckInvoice implements java.io.Serializable{
 	private Date arrivalDate;
 	private String opReferenceNo;
 	private String shipTo;
+	private Boolean approval;
 	private Set<TruckChargeItem> chargeItems = new HashSet<TruckChargeItem>(0);		//Charge item included in the invoice
 
 	/**
@@ -141,7 +142,8 @@ public class TruckInvoice implements java.io.Serializable{
 		this.shipTo = shipTo;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "truckInvoice")
+	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "truckInvoice")
+	//@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "truckInvoice")
 	//@OrderBy("id asc")		//ascending order by ID
 	public Set<TruckChargeItem> getChargeItems() {
 		return chargeItems;
@@ -149,6 +151,14 @@ public class TruckInvoice implements java.io.Serializable{
 
 	public void setChargeItems(Set<TruckChargeItem> chargeItems) {
 		this.chargeItems = chargeItems;
+	}
+
+	public Boolean getApproval() {
+		return approval;
+	}
+
+	public void setApproval(Boolean approval) {
+		this.approval = approval;
 	}
 
 }

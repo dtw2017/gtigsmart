@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Packing List</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{easyui/themes/default/easyui.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{easyui/themes/icon.css}">
+<link rel="stylesheet" type="text/css"
+	href="../../themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" th:href="@{easyui/js/demo.css}">
+<script type="text/javascript" th:src="@{easyui/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{easyui/jquery.easyui.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{easyui/plugins/jquery.edatagrid.js}"></script>
+<script type="text/javascript" th:src="@{customs/packinglist.js}"></script>
+
+</head>
+<body>
+	<h2>Packing List</h2>
+	<div style="padding: 5px 0;">
+		<a href="#" class="easyui-linkbutton"
+			data-options="iconCls:'icon-add'" style="width: 80px">Create</a> <a
+			href="#" class="easyui-linkbutton"
+			data-options="iconCls:'icon-reload'" style="width: 80px">Retrieve</a>
+		<a href="#" class="easyui-linkbutton"
+			data-options="iconCls:'icon-cancel'" style="width: 80px">Delete</a> <a
+			href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'"
+			style="width: 80px">Save</a> <a href="#" class="easyui-linkbutton"
+			data-options="iconCls:'icon-ok'" style="width: 80px">Approve</a> <a
+			href="#" class="easyui-linkbutton"
+			data-options="iconCls:'icon-print',disabled:true" style="width: 80px">Print</a>
+	</div>
+
+	<div style="margin: 20px 0 10px 0;"></div>
+	<div class="easyui-tabs" style="width: 1130px; height: 500px">
+		<div title="General" style="padding: 10px">
+			<table>
+				<tr>
+					<td>Importer</td>
+					<td><input class="easyui-textbox"
+						data-options="multiline:true" style="width: 300px; height: 100px">
+					</td>
+				</tr>
+
+				<tr>
+					<td>Invoice No:</td>
+					<td><input class="easyui-textbox"
+						style="width: 200px; height: 28px"></td>
+					<td>Invoice Date:</td>
+					<td><input class="easyui-datebox"
+						data-options="sharedCalendar:'#cc'"></td>
+				</tr>
+
+				<tr>
+					<td>POL:</td>
+					<td><input id="location" class="easyui-textbox"
+						style="width: 150px; height: 28px"></td>
+					<td>POD:</td>
+					<td><input class="easyui-textbox"
+						style="width: 150px; height: 28px"></td>
+				</tr>
+
+				<tr>
+					<td>SHIP VIA</td>
+					<td><input class="easyui-textbox"
+						style="width: 150px; height: 28px"></td>
+					<td><input type="checkbox" name="Approval" />Approval
+				</tr>
+
+			</table>
+
+			<div id="cc" class="easyui-calendar"></div>
+
+			<table id="packinglist" title="Packing List"
+				style="width: 1100px; height: 200px" toolbar="#toolbar"
+				pagination="true" idField="id" rownumbers="true" fitColumns="true"
+				singleSelect="true">
+				<thead>
+					<tr>
+						<th field="marks" width="100" align="center" editor="text">Marks</th>
+						<th field="po" width="100" align="center" editor="text">PO#</th>
+						<th field="qnd" width="200" align="center" editor="text">Quantities
+							&amp; Descriptions</th>
+						<th field="cts" width="100" align="center"
+							editor="{type:'numberbox',options:{precision:0}}">Cartons</th>
+						<th field="pcs" width="150" align="center"
+							editor="{type:'numberbox',options:{precision:0}}">Quantity(PCS)</th>
+						<th field="gkgs" width="150" align="center"
+							editor="{type:'numberbox',options:{precision:2}}">G.W(KGS)</th>
+						<th field="nkgs" width="150" align="center"
+							editor="{type:'numberbox',options:{precision:2}}">N.W(KGS)</th>
+						<th field="means" width="150" align="center"
+							editor="{type:'numberbox',options:{precision:3}}">MEAS(CBM)</th>
+					</tr>
+				</thead>
+			</table>
+
+			<div id="toolbar">
+				<a href="javascript:void(0)" class="easyui-linkbutton"
+					iconCls="icon-add" plain="true"
+					onclick="javascript:$('#packinglist').edatagrid('addRow')">New</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton"
+					iconCls="icon-remove" plain="true"
+					onclick="javascript:$('#packinglist').edatagrid('destroyRow')">Delete</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton"
+					iconCls="icon-save" plain="true"
+					onclick="javascript:$('#packinglist').edatagrid('saveRow')">Save</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton"
+					iconCls="icon-undo" plain="true"
+					onclick="javascript:$('#packinglist').edatagrid('cancelRow')">Cancel</a>
+			</div>
+		</div>
+
+		<div title="Upload" style="padding: 10px"></div>
+	</div>
+</body>
+</html>

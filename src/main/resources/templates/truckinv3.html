@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Charge Item</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{easyui/themes/default/easyui.css}">
+<link rel="stylesheet" type="text/css"
+	th:href="@{easyui/themes/icon.css}">
+<link rel="stylesheet" type="text/css" th:href="@{easyui/js/demo.css}">
+<script type="text/javascript" th:src="@{easyui/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{easyui/jquery.easyui.min.js}"></script>
+<script type="text/javascript"
+	th:src="@{easyui/plugins/jquery.edatagrid.js}"></script>
+<script type="text/javascript" th:src="@{customs/truckinv.js}"></script>
+<link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<header class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="navbar-nav-scroll">
+    <ul class="navbar-nav bd-navbar-nav flex-row">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">B/L</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Truck</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Customs</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Admin</a>
+      </li>
+    </ul>
+  </div>
+ </header>
+  
+<nav class="collapse bd-links" id="bd-docs-nav"><div class="bd-toc-item active">
+ <ul class="nav bd-sidenav">
+ <li class="active bd-sidenav-active">
+ <a href="/docs/4.0/getting-started/introduction/">Truck Invoice
+ </a></li>
+</ul>
+</div>
+</nav>
+
+	<button type="reset" class="btn btn-secondary" name="newInvoice" onclick="newTruckInvoice()">Create</button>
+	<button type="submit" class="btn btn-info" name="retrieveInvoice"
+		onclick="retrieveTruckInvoice()">Retrieve</button>
+	<button type="submit" class="btn btn-success" name="saveInvoice" onclick="saveTruckInvoice()">Save</button>
+	<button type="submit" class="btn btn-danger" id="deleteInvoice" name="deleteINV"
+		onclick="deleteTruckInvoice()">Delete</button>
+	<button type="submit" class="btn btn-secondary" name="printInvoice" onclick="">Print</button>
+	<button type="submit" class="btn btn-secondary" name="saveTruckCharge"
+		onclick="saveTruckCharge()">Save Truck</button>
+
+	<div style="margin: 20px 0;"></div>
+
+	<table class="tbl_bl">
+		<tr>
+			<th><font color="red">*</font><label for="reference">Invoice
+					No</label></th>
+			<td><input class="easyui-textbox" id="invno" name="invno"
+				data-options="prompt:'Input Invoice No...'"
+				style="width: 160px; height: 28px">
+				
+				</td>
+			<th><label for="inv_date">Invoice Date :</label></th>
+			<td><input class="easyui-datebox" id="invdate" name="invdate"
+				data-options="formatter:myformatter,parser:myparser" style="width: 120px; height: 28px"></td>
+			<th><label for="due_date">Due Date :</label></th>
+			<td><input class="easyui-datebox" id="duedate" name="duedate"
+				data-options="formatter:myformatter,parser:myparser" style="width: 120px; height: 28px"></td>	
+		</tr>
+		
+		<tr>
+			<th><font color="red">*</font><label for="reference">Reference</label></th>
+			<td><input class="easyui-textbox" id="reference_no"
+				name="reference_no" data-options="prompt:'Input Reference No...'"
+				style="width: 160px; height: 28px"></td>
+			<th><font color="red">*</font><label for="op_refer">O/P
+					Ref No</label></th>
+			<td><input class="easyui-textbox" id="oprefer_no"
+				name="oprefer_no" data-options="prompt:'Input OP Reference No...'"
+				style="width: 160px; height: 28px"></td>
+		</tr>
+		<tr>
+			<th><font color="red">*</font><label for="reference">Shipper
+					:</label></th>
+			<td><input class="easyui-textbox" id="shipper" name="shipper"
+				data-options="prompt:'Input Shipper Name...'"
+				style="width: 160px; height: 28px"></td>
+			<th><label for="op_refer">Ship Date :</label></th>
+			<td><input class="easyui-datebox" id="shipdate" name="shipdate"
+				data-options="formatter:myformatter,parser:myparser" style="width: 120px; height: 28px"></td>
+		</tr>
+		<tr>
+			<th><label for="reference"> Ship To :</label></th>
+			<td><input id="shipto" class="easyui-textbox" name="shipto" style="width: 160px; height: 28px"></td>
+			<th><label for="op_refer">Arrival Date :</label></th>
+			<td><input class="easyui-datebox" id="arrivaldate"
+				name="arrivaldate"
+				data-options="formatter:myformatter,parser:myparser" style="width: 120px; height: 28px"></td>
+		</tr>
+	</table>
+
+	<table id="truckcharge" title="Charge Details"
+		style="width: 700px; height: 250px" toolbar="#toolbar"
+		pagination="true" idField="id" rownumbers="true" fitColumns="true"
+		singleSelect="true">
+		<thead>
+			<tr>
+				<th field="itemid" width="100" align="center"
+					editor="{type:'validatebox',options:{required:true}}">ITEM</th>
+				<th field="desc" width="100" align="center" editor="text">DESCRIPTION</th>
+				<th field="amount" width="100" align="center"
+					editor="{type:'numberbox',options:{precision:2}}">AMOUNT</th>
+			</tr>
+		</thead>
+	</table>
+
+	<div id="toolbar">
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			iconCls="icon-add" plain="true"
+			onclick="javascript:$('#truckcharge').edatagrid('addRow')">New</a> <a
+			href="javascript:void(0)" class="easyui-linkbutton"
+			iconCls="icon-remove" plain="true"
+			onclick="javascript:$('#truckcharge').edatagrid('destroyRow')">Delete</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			iconCls="icon-save" plain="true"
+			onclick="javascript:$('#truckcharge').edatagrid('saveRow')">Save</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton"
+			iconCls="icon-undo" plain="true"
+			onclick="javascript:$('#truckcharge').edatagrid('cancelRow')">Cancel</a>
+	</div>
+
+	<h5>Upload Invoice</h5>
+	<form method="POST" enctype="multipart/form-data" id="fileUploadForm">
+		<br /> <input type="file" name="files" /><br />
+		<br /> <button type="submit" class="btn btn-danger" name="Delete" onclick="deleteInvoice()">Delete</button>
+		<button type="submit" class="btn btn-warning" name="Upload" onclick="uploadInvoice()">Upload</button>
+	</form>
+</body>
+</html>

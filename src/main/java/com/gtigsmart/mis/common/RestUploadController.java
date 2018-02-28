@@ -112,7 +112,6 @@ public class RestUploadController {
 			byte[] bytes = file.getBytes();
 			Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
 			Files.write(path, bytes);
-
 		}
 
 	}
