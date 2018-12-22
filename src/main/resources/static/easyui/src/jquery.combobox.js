@@ -1,5 +1,5 @@
 /**
- * EasyUI for jQuery 1.5.4.1
+ * EasyUI for jQuery 1.6.11
  * 
  * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
@@ -571,10 +571,11 @@
 		render: function(target, container, data){
 			var state = $.data(target, 'combobox');
 			var opts = state.options;
-
+			var prefixId = $(target).attr('id')||'';
+			
 			COMBOBOX_SERNO++;
-			state.itemIdPrefix = '_easyui_combobox_i' + COMBOBOX_SERNO;
-			state.groupIdPrefix = '_easyui_combobox_g' + COMBOBOX_SERNO;		
+			state.itemIdPrefix = prefixId + '_easyui_combobox_i' + COMBOBOX_SERNO;
+			state.groupIdPrefix = prefixId + '_easyui_combobox_g' + COMBOBOX_SERNO;		
 			state.groups = [];
 			
 			var dd = [];
@@ -642,6 +643,7 @@
 		},
 		inputEvents: $.extend({}, $.fn.combo.defaults.inputEvents, {
 			blur: function(e){
+				$.fn.combo.defaults.inputEvents.blur(e);
 				var target = e.data.target;
 				var opts = $(target).combobox('options');
 				if (opts.reversed || opts.limitToList){
